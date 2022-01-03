@@ -107,5 +107,4 @@ app.delete("/usuario", checksExistsUserAccount, (request, response) => {
   response.status(200).json();
 });
 
-app.listen(3333);
-//mongodb+srv://gibdike:<password>@cluster0.qmsq8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+app.listen(process.env.PORT || 3333);
