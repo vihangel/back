@@ -1,3 +1,38 @@
+const { MongoClient } = require("mongodb");
+// Replace the uri string with your MongoDB deployment's connection string.
+//se der erro verificar ip
+const uri =
+  `mongodb+srv://angel:psicotran@psicotran.rctxh.mongodb.net/psicotran?retryWrites=true&w=majority`;
+const client = new MongoClient(uri);
+const dbName = 'users';
+
+async function main() {
+  // Use connect method to connect to the server
+  await client.connect();
+  console.log('Connected successfully to server');
+  
+  const db = client.db(dbName);
+
+  const collection = db.collection('user');
+  const user1 = {
+    "id":"skf12lksdmflkdsm",
+    "cpf": "21234",
+    "renach": "21233243",
+  }
+  const result = await collection.insertOne(user1);
+  console.log(result);
+  // the following code examples can be pasted here...
+
+  return 'done.';
+}
+
+main()
+  .then(console.log)
+  .catch(console.error)
+  .finally(() => client.close());
+
+
+//aplicação
 const express = require("express");
 const cors = require("cors");
 
@@ -75,3 +110,4 @@ app.delete("/usuario", checksExistsUserAccount, (request, response) => {
 });
 
 app.listen(3333);
+//mongodb+srv://gibdike:<password>@cluster0.qmsq8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
