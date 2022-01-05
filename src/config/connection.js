@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 const URI = process.env.MONGO_URL;
-
+URI =
+  "mongodb+srv://angel:psicotran@psicotran.rctxh.mongodb.net/psicotran?retryWrites=true&w=majority";
 class Connection {
   constructor() {
     this.dataBaseConnectionMongoDB();
