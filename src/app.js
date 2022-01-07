@@ -16,11 +16,6 @@ class App {
 
     this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Origin", "Get, POST, PUT, DELETE");
-      res.header(
-        "Access-Control-Allow-Origin",
-        "Access, Content-type, Authorization, Accept, Origin, X-Requested-With"
-      );
 
       this.app.use(cors());
       next();
