@@ -22,7 +22,13 @@ class App {
       res.header(
         "Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With"
       );
-
+      req.header("Access-Control-Allow-Origin: *");
+      req.header(
+        "Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE"
+      );
+      req.header(
+        "Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With"
+      );
       this.app.use(cors());
       next();
     });
