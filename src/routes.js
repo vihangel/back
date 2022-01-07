@@ -12,4 +12,7 @@ routes.get("/user", AuthMiddleware, UserController.show);
 routes.post("/login", LoginController.index);
 routes.post("/createAdmin", LoginController.createAdmin);
 
+//esse é de teste
+routes.get("/teste", UserController.show);
+
 module.exports = routes;
