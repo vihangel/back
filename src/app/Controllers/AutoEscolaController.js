@@ -1,39 +1,11 @@
 //Login futuro ADM
 
 const User = require("../models/UserLogin");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const config = require("../../config/auth");
 const yup = require("yup");
 
-class LoginController {
+class AutoEscolaController {
   async index(req, res) {
-    const { name, password } = req.body;
-
-    const userExist = await User.findOne({ name });
-
-    if (!userExist) {
-      return res.status(400).json({
-        error: true,
-        message: "Usuário não existe!",
-      });
-    }
-    if (!(await bcrypt.compare(password, userExist.password))) {
-      return res.status(400).json({
-        error: true,
-        message: "A senha está inválida!",
-      });
-    }
-
-    return res.status(200).json({
-      user: {
-        name: userExist.name,
-        email: userExist.email,
-      },
-      token: jwt.sign({ id: userExist._id }, config.secret, {
-        expiresIn: config.expireIn,
-      }),
-    });
+    return res.status(200).json({});
   }
   async createAdmin(req, res) {
     /**
@@ -107,4 +79,4 @@ class LoginController {
   }
 }
 
-module.exports = new LoginController();
+module.exports = new AutoEscolaController();

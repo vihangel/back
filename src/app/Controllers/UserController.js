@@ -1,5 +1,5 @@
 const User = require("../models/User");
-
+const Bot = require("../bot/bot");
 const yup = require("yup");
 
 //se for ter senha tem como add criptografia
@@ -18,9 +18,9 @@ class UserController {
     let schema = yup.object().shape({
       cpf: yup.string().required(),
       renach: yup.string().required(),
-      nome: yup.string(),
+      //nome: yup.string(),
     });
-
+    console.log(req.body);
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({
         error: true,
@@ -36,15 +36,27 @@ class UserController {
       });
     }
 
-    const { name, cpf, renach } = req.body;
-
-    const data = {
-      name,
-      cpf,
-      renach,
+    const { cpf, renach } = req.body;
+    const fullUserr = await Bot.collectDataFromBrowser();
+    if (fullUserr == null) {
+      await Bot.collectDataFromBrowser();
+    }
+    var fullUser = {
+      name: fullUserr[1],
+      cpf: cpf,
+      renach: renach,
+      categoria: fullUserr[4],
+      identidade: fullUserr[2],
+      data_nascimento: fullUserr[3],
+      autoescola: fullUserr[0],
+      taxa: fullUserr[5],
     };
+    // const data = {
+    //   cpf,
+    //   renach,
+    // };
 
-    let user = await User.create(data, (err) => {
+    let user = await User.create(fullUser, (err) => {
       if (err)
         return res.status(400).json({
           error: true,
