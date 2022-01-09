@@ -3,10 +3,22 @@ const { Router } = require("express");
 const AuthMiddleware = require("./app/midleware/AuthMidleware");
 const UserController = require("./app/Controllers/UserController");
 const LoginController = require("./app/Controllers/LoginController");
-const AutoEscolaController = require("./app/Controllers/AutoEscolaController");
+const ExtrasControllers = require("./app/Controllers/ExtrasControllers");
+
+/*
+[x] Aws publicado
+[x] Buscando dados no site do detran pelo cpf e Renach
+[+] Banco de dados com psicologos e Autoescolas criando {Falta buscar} !Important
+[ ] Ver como vai ser a API das listas diarias e alterações de teste, reteste e essas coisas dos usuarios
+[ ] Listar todos os Users !Important
+[ ] Futuramente implentar um banco para cada Admin ou clinica sl
+[ ] Ver os dados que precisa de Psicologos, AutoEscolas e Testes
+[ ] Arrumar o idioma ta tudo misturado!
+*/
 
 const routes = new Router();
 
+//user post esta com o pupeetter ativo, ver com lo se deixa nvegador aberto ou não
 routes.post("/user", AuthMiddleware, UserController.store);
 routes.get("/user", AuthMiddleware, UserController.show);
 
@@ -14,8 +26,16 @@ routes.post("/login", LoginController.index);
 routes.post("/createAdmin", LoginController.createAdmin);
 
 //esse é de teste
-routes.get("/teste", UserController.show);
+//routes.get("/teste", UserController.show);
 
-routes.get("/autoEscola", AuthMiddleware, AutoEscolaController.index);
+routes.get("/autoEscolas", AuthMiddleware, ExtrasControllers.indexAutoEscolas);
+routes.post("/autoEscolas", AuthMiddleware, ExtrasControllers.addAutoEscola);
+
+routes.get("/psico", AuthMiddleware, ExtrasControllers.indexPsicos);
+routes.post("/psico", AuthMiddleware, ExtrasControllers.addPsico);
+
+//Precisa ter um put para atualizar as quantidaes e verificar com o uso de cada dia
+routes.get("/testes", AuthMiddleware, ExtrasControllers.indexTestes);
+routes.post("/testes", AuthMiddleware, ExtrasControllers.addTeste);
 
 module.exports = routes;

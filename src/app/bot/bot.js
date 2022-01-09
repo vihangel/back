@@ -5,7 +5,7 @@ const BASE_URL = `https://www.detran.mt.gov.br/`;
 
 class GetUserByBot {
   // retorna um josn com os dados da pagina
-  async collectDataFromBrowser(Renach = `646632256`, cpf = `04157908163`) {
+  async collectDataFromBrowser(  Renach,  cpf) {
     console.log(`Pupeeter`);
 
     const browser = await puppeteer.launch({
@@ -178,3 +178,35 @@ class GetUserByBot {
 }
 
 module.exports = new GetUserByBot();
+
+
+/*
+1 -Eu acho que esse Header na verdade as coisas dele podiam ser movidas pro Home Controller 
+apagar esse Header
+Angel ´_^ — Ieri alle 18:47
+eu tinha pensando nisso
+renan_ctorres — Ieri alle 18:48
+2 - Evitar usar StatefulWidget e usar StatelessWidget, evitar colocar funções fora dos controllers, quando você precisar mudar algo na tela usa o Observer remetendo ao valor de dentro do controller
+3 - Esse dropdown widget seria bom você abstrair ele ao máximo, não colocar controllers nele
+Angel ´_^ — Ieri alle 18:51
+como eu passo os valores dos controllers sem usar o controller dentro dele?
+renan_ctorres — Ieri alle 18:58
+tipo assim
+Immagine
+aí na página que vc vai usar vc vai usar o observer e o controller relacionada aquela página
+esse dropdown é pra selecionar o que mesmo?
+Angel ´_^ — Ieri alle 19:05
+a listinha da header
+aquele que fica "casa"
+renan_ctorres — Ieri alle 19:06
+sei
+vc pode colocar pra criar essa lista em um controller e instanciar esse controller nas outras páginas pra atualizar ele
+Angel ´_^ — Ieri alle 19:08
+ok eu acho q entendi sksk
+renan_ctorres — Ieri alle 19:08
+uhauahuahua
+aí sempre lembrar de usar StatelessWidget, sem usar esse setState, usar o Observer pra alterar
+e as funções sempre dentro do controller
+qualquer coisa to aqui, demoro um pouco mas to aqui kkkkk
+
+*/
