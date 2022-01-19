@@ -4,11 +4,12 @@ const yup = require("yup");
 
 //se for ter senha tem como add criptografia
 class UserController {
-  show(req, res) {
+  async show(req, res) {
+    const users = await User.find();
+
     return res.status(200).json({
       error: false,
-      //verificar user?
-      message: "Pegar user...",
+      users,
     });
   }
 
@@ -17,7 +18,6 @@ class UserController {
     let schema = yup.object().shape({
       cpf: yup.string().required(),
       renach: yup.string().required(),
-      
     });
     console.log(req.body);
     if (!(await schema.isValid(req.body))) {
@@ -56,6 +56,7 @@ class UserController {
       data_nascimento: fullUserr[3],
       autoescola: fullUserr[0],
       taxa: fullUserr[5],
+      motivo: fullUserr[6],
     };
 
     let user = await User.create(fullUser, (err) => {

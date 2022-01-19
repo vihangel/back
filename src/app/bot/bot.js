@@ -5,7 +5,7 @@ const BASE_URL = `https://www.detran.mt.gov.br/`;
 
 class GetUserByBot {
   // retorna um josn com os dados da pagina
-  async collectDataFromBrowser(  Renach,  cpf) {
+  async collectDataFromBrowser(Renach, cpf) {
     console.log(`Pupeeter`);
 
     const browser = await puppeteer.launch({
@@ -27,19 +27,21 @@ class GetUserByBot {
 
     await page.keyboard.press("Enter");
     console.log("apertou");
-    await page.waitForTimeout(1000);
-
+    await page.waitForTimeout(1500);
     const pages = await browser.pages();
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1500);
 
     if (pages.length > 2) {
       page = pages[2];
     }
 
+    await page.waitForTimeout(2000);
+
     const data = await page.evaluate(() => {
       const tds = Array.from(document.querySelectorAll("table tr td"));
       return tds.map((td) => td.innerText);
     });
+    console.log("vazio pq?");
 
     const response = data.map((item) => {
       const newItem = item
@@ -76,6 +78,7 @@ class GetUserByBot {
     const dadosNovos = [];
     let flagD = false;
     let flagTaxa = false;
+    let req = false;
     for (let i = 0; i < newJson2.length; i++) {
       if (newJson2[i].indexOf("CFC:") > -1 && entrada[0] == null) {
         split = newJson2[i].split(" ");
@@ -123,6 +126,23 @@ class GetUserByBot {
           }
         }
         console.log("Categoria Pretendida: " + entrada[4]);
+      }
+      if (newJson2[i].indexOf("Requerimento") > -1 && entrada[6] == null) {
+        split = newJson2[i].split(" ");
+        entrada[6] = " ";
+        for (let index = 3; index < split.length; index++) {
+          if (split[index] == "Data") {
+            req = false;
+          }
+          if (req) {
+            entrada[6] += split[index] + " ";
+          }
+          if (split[index] == "Requerimento") {
+            req = true;
+          }
+        }
+
+        console.log("Requerimento: " + entrada[6]);
       }
       if (newJson2[i] == "Dados Pessoais") {
         console.log("Dados Pessoais");
@@ -178,7 +198,6 @@ class GetUserByBot {
 }
 
 module.exports = new GetUserByBot();
-
 
 /*
 1 -Eu acho que esse Header na verdade as coisas dele podiam ser movidas pro Home Controller 

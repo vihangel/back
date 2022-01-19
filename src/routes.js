@@ -4,6 +4,7 @@ const AuthMiddleware = require("./app/midleware/AuthMidleware");
 const UserController = require("./app/Controllers/UserController");
 const LoginController = require("./app/Controllers/LoginController");
 const ExtrasControllers = require("./app/Controllers/ExtrasControllers");
+const DaysControllers = require("./app/Controllers/DayControllers");
 
 /*
 [x] Aws publicado
@@ -37,5 +38,12 @@ routes.post("/psico", AuthMiddleware, ExtrasControllers.addPsico);
 //Precisa ter um put para atualizar as quantidaes e verificar com o uso de cada dia
 routes.get("/testes", AuthMiddleware, ExtrasControllers.indexTestes);
 routes.post("/testes", AuthMiddleware, ExtrasControllers.addTeste);
+
+//Controles do dia, caixa e aplicações
+routes.post("/caixa", AuthMiddleware, DaysControllers.storeCaixa);
+routes.get("/caixa", AuthMiddleware, DaysControllers.showCaixa);
+
+routes.post("/aplicacao", AuthMiddleware, DaysControllers.store);
+routes.get("/aplicacao", AuthMiddleware, DaysControllers.show);
 
 module.exports = routes;
