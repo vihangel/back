@@ -1,11 +1,11 @@
-import { find, findOne, create } from "../models/user";
-import { collectDataFromBrowser } from "../bot/bot";
-import { object, string } from "yup";
+const User = require("../models/user");
+const Bot = require("../bot/bot");
+const yup = require("yup");
 
 //se for ter senha tem como add criptografia
 class UserController {
   async show(req, res) {
-    const users = await find();
+    const users = await User.find();
 
     return res.status(200).json({
       error: false,
@@ -15,9 +15,9 @@ class UserController {
 
   async store(req, res) {
     //validação
-    let schema = object().shape({
-      cpf: string().required(),
-      renach: string().required(),
+    let schema = yup.object().shape({
+      cpf: yup.string().required(),
+      renach: yup.string().required(),
     });
     console.log(req.body);
     if (!(await schema.isValid(req.body))) {
@@ -27,7 +27,7 @@ class UserController {
       });
     }
 
-    let userExist = await findOne({ cpf: req.body.cpf });
+    let userExist = await User.findOne({ cpf: req.body.cpf });
     if (userExist) {
       return res.status(400).json({
         error: true,
@@ -37,7 +37,7 @@ class UserController {
 
     const { cpf, renach } = req.body;
 
-    const fullUserr = await collectDataFromBrowser(renach, cpf);
+    const fullUserr = await Bot.collectDataFromBrowser(renach, cpf);
 
     if (fullUserr == null) {
       //Ver qual o codigo de bad request
@@ -59,7 +59,7 @@ class UserController {
       motivo: fullUserr[6],
     };
 
-    let user = await create(fullUser, (err) => {
+    let user = await User.create(fullUser, (err) => {
       if (err)
         return res.status(400).json({
           error: true,
@@ -74,4 +74,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+module.exports = new UserController();
