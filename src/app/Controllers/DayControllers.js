@@ -1,4 +1,4 @@
-const Caixa = require("../models/Caixa");
+const Caixa = require("../models/caixa");
 
 const yup = require("yup");
 
