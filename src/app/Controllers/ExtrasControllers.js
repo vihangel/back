@@ -1,6 +1,6 @@
 //Login futuro ADM
 
-const autoescolas = require("../models/Autoescolas");
+const autoescolas = require("../models/autoescolas");
 const Psicos = require("../models/psicologas");
 const Testes = require("../models/testes");
 const yup = require("yup");
@@ -58,7 +58,6 @@ class ExtrasControllers {
     });
   }
   async addPsico(req, res) {
-   
     let schema = yup.object().shape({
       name: yup.string().required(),
       identificacao: yup.string(),
@@ -95,8 +94,6 @@ class ExtrasControllers {
     });
   }
   async addTeste(req, res) {
-  
-
     let schema = yup.object().shape({
       name: yup.string().required(),
       id: yup.string().required(),
