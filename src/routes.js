@@ -1,10 +1,10 @@
 const { Router } = require("express");
 //https://www.youtube.com/watch?v=iJMG5qIYf-A&list=PLZO_SqCI6cXa2kqP-q7je-BEmhcA3ybVo&index=4
-const AuthMiddleware = require("./app/midleware/authMidleware");
-const UserController = require("./app/Controllers/userController");
-const LoginController = require("./app/Controllers/loginController");
-const ExtrasControllers = require("./app/Controllers/extrasControllers");
-const DaysControllers = require("./app/Controllers/dayControllers");
+const AuthMiddleware = require("./app/midleware/auth_midleware");
+const UserController = require("./app/controllers/user_controller");
+const LoginController = require("./app/controllers/login_controller");
+const ExtrasControllers = require("./app/controllers/extras_controllers");
+const DaysControllers = require("./app/controllers/day_controllers");
 
 /*
 [x] Aws publicado
