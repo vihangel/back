@@ -1,6 +1,6 @@
 //Login futuro ADM
 
-const User = require("../models/userlogin");
+const User = require("../models/userLogin");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const config = require("../../config/auth");
